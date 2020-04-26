@@ -1,13 +1,13 @@
 import Card from "./Card";
-import { Component } from 'react'
+import React, { Component } from 'react'
 
 
 export default class Deck extends Component { 
-  constructor(props) { 
-    super(props);
+  constructor() { 
+    super();
     this.state = {};
 
-    this.debug = true;
+    this.debug = false;
     this.cards = [];
 
     this.createDeck();
@@ -16,11 +16,16 @@ export default class Deck extends Component {
   }
 
   render() { 
-    return null;
+    return (
+      <ul>
+      {this.cards.map((card, i) => {
+        return <li key={i}>{`${card.v} of ${card.s}`}</li>
+      })}
+      </ul>
+    );
   }
 
   createDeck() {
-    if (this.debug) console.log("Creating Deck....");
     const suits = ['h', 'd', 'c', 's'];
     const vals = ['a', '2', '3', '4', '5', '6', '7', '8', '9', 't', 'j', 'q', 'k']
 
@@ -29,7 +34,6 @@ export default class Deck extends Component {
         this.cards.push(new Card(vals[j], suits[i]));
       }
     }
-    if (this.debug) console.log("Done Creating!");
   }
 
   showDeck() {
@@ -39,14 +43,11 @@ export default class Deck extends Component {
   }
 
   shuffleDeck() { 
-    if (this.debug) console.log("Shuffling the Deck.......");
-
     for (let i = 0; i < this.cards.length; i++) {
       let pickACard = Math.floor(Math.random() * (this.cards.length));
       let temp = this.cards[i];
       this.cards[i] = this.cards[pickACard];
       this.cards[pickACard] = temp;
     }
-    if (this.debug) console.log("Done Shuffling");
   }
 }

@@ -3,9 +3,11 @@ import './App.css';
 import Deck from './Deck.js';
 
 // eslint-disable-next-line
-const deck = new Deck();
+// const deck = new Deck();
 
 class App extends Component {
+
+  
   render() { 
     return (
       <div>
