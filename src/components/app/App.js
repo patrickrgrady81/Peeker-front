@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import '../deck/Deck.css';
 import '../card/Card.css';
-import Deck from '../deck/Deck.js';
+import '../table/Table.css';
+import Table from '../table/Table.js';
 
 // eslint-disable-next-line
 // const deck = new Deck();
@@ -15,7 +16,7 @@ class App extends Component {
       <div>
         <h1>Welcome to Peeker</h1>
         <h2>A React Video Poker Trainer</h2>
-        <Deck />
+        <Table />
       </div>
     );
   }
