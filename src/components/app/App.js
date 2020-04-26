@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import Deck from './Deck.js';
+import '../deck/Deck.css';
+import '../card/Card.css';
+import Deck from '../deck/Deck.js';
 
 // eslint-disable-next-line
 // const deck = new Deck();

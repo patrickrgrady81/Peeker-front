@@ -1,13 +1,12 @@
-import Card from "./Card";
+import Card from "../card/Card";
 import React, { Component } from 'react'
-
 
 export default class Deck extends Component { 
   constructor() { 
     super();
     this.state = {};
 
-    this.debug = true;
+    this.debug = false;
     this.cards = [];
 
     this.createDeck();
@@ -17,17 +16,19 @@ export default class Deck extends Component {
 
   render() { 
     return (
-      <ul>
-      {this.cards.map((card, i) => {
-        return <li key={i}><Card card={card}/></li>
-      })}
-      </ul>
+      <div>
+        <ul className="noBullet">
+          {this.cards.map((card, i) => {
+            return <div><li key={i}><Card card={card}/></li><br /></div>
+          })}
+        </ul>
+      </div>
     );
   }
 
   createDeck() {
-    const suits = ['h', 'd', 'c', 's'];
-    const vals = ['a', '2', '3', '4', '5', '6', '7', '8', '9', 't', 'j', 'q', 'k']
+    const suits = ['H', 'D', 'C', 'S'];
+    const vals = ['A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K']
 
     for (let i = 0; i < suits.length; i++) {
       for (let j = 0; j < vals.length; j++) {
