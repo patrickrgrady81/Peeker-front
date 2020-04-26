@@ -1,10 +1,16 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 
 
 export default class Card extends Component { 
-  constructor(v, s) { 
-    super();
-    this.v = v
-    this.s = s;
+  // constructor(props) {
+  //   super(props)
+  // }
+
+  render() { 
+    return (
+      <div>
+        {`${this.props.card.v} of ${this.props.card.s}`}
+      </div>
+    )
   }
 }

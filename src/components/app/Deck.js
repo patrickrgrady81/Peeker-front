@@ -7,7 +7,7 @@ export default class Deck extends Component {
     super();
     this.state = {};
 
-    this.debug = false;
+    this.debug = true;
     this.cards = [];
 
     this.createDeck();
@@ -19,7 +19,7 @@ export default class Deck extends Component {
     return (
       <ul>
       {this.cards.map((card, i) => {
-        return <li key={i}>{`${card.v} of ${card.s}`}</li>
+        return <li key={i}><Card card={card}/></li>
       })}
       </ul>
     );
@@ -31,7 +31,7 @@ export default class Deck extends Component {
 
     for (let i = 0; i < suits.length; i++) {
       for (let j = 0; j < vals.length; j++) {
-        this.cards.push(new Card(vals[j], suits[i]));
+        this.cards.push(new localCard(vals[j], suits[i]));
       }
     }
   }
@@ -49,5 +49,12 @@ export default class Deck extends Component {
       this.cards[i] = this.cards[pickACard];
       this.cards[pickACard] = temp;
     }
+  }
+}
+
+class localCard { 
+  constructor(v, s) { 
+    this.v = v
+    this.s = s;
   }
 }
