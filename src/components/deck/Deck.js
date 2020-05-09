@@ -72,7 +72,8 @@ export default class Deck extends Component {
 
 class localCard { 
   constructor(v, s) { 
-    this.v = v
+    this.v = v;
     this.s = s;
+    this.image = `img/${this.v}${this.s}.png`;
   }
 }
