@@ -14,6 +14,32 @@ export default class Deck extends Component {
     };
   }
 
+  render() { 
+    return (
+      <div className="wrapper">
+        <ul className="noBullet cards">
+          {this.showCards()}
+        </ul>
+        <button className="draw-btn" onClick={this.buttonClick}>{this.state.gameState}</button>
+      </div>
+    );
+  }
+
+  showCards = () => { 
+    let cards = [];
+    if (this.state.hand[0]) {
+      // eslint-disable-next-line
+      this.state.hand.map((card, i) => {
+        cards.push(<li key={i}><Card card={card} gameState={this.state.gameState} /></li>);
+      })
+    } else { 
+      for (let i = 0; i < 5; i++) { 
+        cards.push(<li key={i}><Card card={null} gameState={this.state.gameState} /></li>);
+      }
+    }
+    return cards
+  }
+
   start = () => { 
     let deck = this.createDeck();
     this.shuffleDeck(deck);
@@ -21,7 +47,7 @@ export default class Deck extends Component {
   }
 
 
-  draw = () => {
+  buttonClick = () => {
     if (this.state.gameState === "Start") {
       for (let i = 0; i < 5; i++) {
         this.setState(state => {
@@ -36,22 +62,48 @@ export default class Deck extends Component {
           gameState: "Draw"
         }
       });
+    } else if (this.state.gameState === "Draw") {
+      // We started the game and have cards 
+      // When we click again we get new cards for all 
+      // cards that are !held
+      let newHand = [...this.state.hand];
+      let newDeck = [...this.state.deck]
+      // debugger
+      for (let i = 0; i < newHand.length; i++) {
+        if (!newHand[i].held) {
+          let newCard = newDeck[i];
+          newHand.splice(i, 1, newCard);
+        }
+      }
+      this.setState(state => {
+        return {
+          deck: newDeck,
+          hand: newHand,
+          gameState: "Deal"
+        }
+      });
     } else { 
-
+      // Deal new hand
+      // create new deck 
+      const newDeck = this.createDeck();
+      this.shuffleDeck(newDeck);
+      this.setState({ deck: newDeck });
+      // create new player hand
+      // add 5 cards to hand
+      let pHand = newDeck.slice(0, 5);
+      console.log(pHand);
+      for (let card of pHand) { 
+        card.held = false;
+      }
+      // gameState => Draw
+      this.setState(state => {
+        return {
+          deck: newDeck,
+          hand: pHand,
+          gameState: "Draw"
+        }
+      });
     }
-  }
-
-  render() { 
-    return (
-      <div className="wrapper">
-        <ul className="noBullet cards">
-          {this.state.hand.map((card, i) => {
-            return <li key={i}><Card card={card} gameState={this.state.gameState}/></li>
-          })}
-        </ul>
-        <button className="draw-btn" onClick={this.draw}>{this.state.gameState}</button>
-      </div>
-    );
   }
 
   createDeck() {
@@ -87,5 +139,6 @@ class localCard {
     this.s = s;
     this.image = `img/cards/${this.v}${this.s}.png`;
     this.id = `${this.v.toLowerCase()}${this.s.toLowerCase()}`;
+    this.held = false;
   }
 }

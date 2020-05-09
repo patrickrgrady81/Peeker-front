@@ -7,35 +7,47 @@ export default class Card extends Component {
     super(props)
 
     this.state = {
-      hold: false 
+      held: false 
     }
   }
 
-  holdButton = () => { 
-    this.setState(state => { 
-      return {
-        hold: !this.state.hold
-      }
-    });
+  holdButton = () => {
+    if (this.props.gameState === "Start") return;
+    if (this.props.gameState === "Draw") {
+      this.props.card.held = !this.props.card.held
+      this.setState(state => {
+        return {
+          held: !this.state.held
+        }
+      });
+    } else { 
+      // this.setState({held: false});
+    }
   }
 
   showCards = () => {
 
     let cardImage;
-    debugger
 
-    if (this.props.gameState === "Draw") {
-      cardImage = this.props.card.image;
+    if (this.props.gameState === "Start") {
+      cardImage = '/img/cards/blue_back.png';
+      return (
+        <div className="cardWrapper">
+          <img className="card" src={cardImage} alt="card"></img>
+          <button onClick={this.holdButton} key={null} id={null} className="card-btn">READY</button>
+        </div>
+      )
     } else { 
-      cardImage = this.image = '/img/cards/blue_back.png';
+      cardImage = this.props.card.image;
+      return (
+        <div className="cardWrapper">
+          <img className="card" src={cardImage} alt="card"></img>
+          <button onClick={this.holdButton} key={this.props.card.id} id={this.props.card.id} className="card-btn">{this.state.held ? "HOLDING" : "HOLD"}</button>
+        </div>
+      )
     }
     
-    return (
-      <div className="cardWrapper">
-        <img className="card" src={`${cardImage}`} alt="card"></img>
-        <button onClick={this.holdButton} key={this.props.card.id} id={this.props.card.id} className="card-btn">{this.state.hold ? "HELD" : "HOLD"}</button>
-      </div>
-    )
+
   }
   
 
