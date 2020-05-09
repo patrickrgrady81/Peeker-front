@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import './Card.css'
 
 
 export default class Card extends Component { 
@@ -7,12 +8,22 @@ export default class Card extends Component {
   // }
 
   showCards = () => {
-    // return `${this.props.card.v} of ${this.props.card.s}`
-    const cardImage = this.props.card.image;
+
+    let cardImage;
+
+    if (this.props.gameState === "Draw") {
+      cardImage = this.props.card.image;
+    } else { 
+      cardImage = this.image = '/img/cards/blue_back.png';
+    }
+
+    // const cardImage = this.props.card.image;
+    
     return(
-      <img src={cardImage} alt="card"></img>
+      <img className="card" src={`${cardImage}`} alt="card"></img>
     )
   }
+  
 
   render() { 
 

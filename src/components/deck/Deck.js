@@ -5,36 +5,51 @@ export default class Deck extends Component {
   constructor() { 
     super();
 
-    let deck = this.createDeck();
-    this.shuffleDeck(deck);
-    
+    const newDeck = this.start()
+        
     this.state = {
-      deck: deck,
+      gameState: "Start",
+      deck: newDeck,
       hand: []
     };
   }
 
+  start = () => { 
+    let deck = this.createDeck();
+    this.shuffleDeck(deck);
+    return deck;
+  }
+
 
   draw = () => {
-    for (let i = 0; i < 5; i++) {
+    if (this.state.gameState === "Start") {
+      for (let i = 0; i < 5; i++) {
+        this.setState(state => {
+          return {
+            deck: state.deck.slice(1),
+            hand: [...state.hand, state.deck[0]],
+          }
+        });
+      }
       this.setState(state => {
         return {
-          deck: state.deck.slice(1),
-          hand: [...state.hand, state.deck[0]]
+          gameState: "Draw"
         }
-      })
+      });
+    } else { 
+
     }
   }
 
   render() { 
     return (
-      <div>
-        <ul className="noBullet">
+      <div className="wrapper">
+        <ul className="noBullet cards">
           {this.state.hand.map((card, i) => {
-            return <div><li key={i}><Card card={card}/></li><br /></div>
+            return <li key={i}><Card card={card} gameState={this.state.gameState}/></li>
           })}
         </ul>
-        <button onClick={this.draw}>Draw</button>
+        <button className="draw-btn" onClick={this.draw}>{this.state.gameState}</button>
       </div>
     );
   }
@@ -61,12 +76,8 @@ export default class Deck extends Component {
   shuffleDeck(cards) { 
     for (let i = 0; i < cards.length; i++) {
       let pickACard = Math.floor(Math.random() * (cards.length));
-      // let temp = cards[i];
-      // cards[i] = cards[pickACard];
-      // cards[pickACard] = temp;
       [cards[i], cards[pickACard]] = [cards[pickACard], cards[i]];
     }
-    console.log(cards)
   }
 }
 
@@ -74,6 +85,6 @@ class localCard {
   constructor(v, s) { 
     this.v = v;
     this.s = s;
-    this.image = `img/${this.v}${this.s}.png`;
+    this.image = `img/cards/${this.v}${this.s}.png`;
   }
 }
