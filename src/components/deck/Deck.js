@@ -86,5 +86,6 @@ class localCard {
     this.v = v;
     this.s = s;
     this.image = `img/cards/${this.v}${this.s}.png`;
+    this.id = `${this.v.toLowerCase()}${this.s.toLowerCase()}`;
   }
 }
