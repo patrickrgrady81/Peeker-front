@@ -85,16 +85,15 @@ export default class Deck extends Component {
     } else { 
       // Deal new hand
       // create new deck 
-      const newDeck = this.createDeck();
+      let newDeck = this.createDeck();
       this.shuffleDeck(newDeck);
-      this.setState({ deck: newDeck });
       // create new player hand
       // add 5 cards to hand
       let pHand = newDeck.slice(0, 5);
-      console.log(pHand);
       for (let card of pHand) { 
         card.held = false;
       }
+      newDeck = newDeck.slice(4, -1);
       // gameState => Draw
       this.setState(state => {
         return {
@@ -117,12 +116,6 @@ export default class Deck extends Component {
       }
     }
     return cards
-  }
-
-  showDeck() {
-    for (let i = 0; i < this.state.deck.length; i++){
-        console.log(`${this.cards[i].v} of ${this.cards[i].s}`);
-      }
   }
 
   shuffleDeck(cards) { 

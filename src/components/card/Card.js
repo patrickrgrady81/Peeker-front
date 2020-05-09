@@ -11,26 +11,27 @@ export default class Card extends Component {
     }
   }
 
-  holdButton = () => {
-    if (this.props.gameState === "Start") return;
-    if (this.props.gameState === "Draw") {
-      this.props.card.held = !this.props.card.held
-      this.setState(state => {
-        return {
-          held: !this.state.held
-        }
-      });
-    } else { 
-      // this.setState({held: false});
+  componentDidUpdate = () => { 
+    if (this.props.gameState === "Deal") { 
+      if (this.state.held) {
+        this.setState({ held: false });
+      }
     }
   }
 
+  render() { 
+    return (
+      <div>
+        {this.showCards()}
+      </div>
+    )
+  }
+
   showCards = () => {
-
     let cardImage;
-
     if (this.props.gameState === "Start") {
       cardImage = '/img/cards/blue_back.png';
+
       return (
         <div className="cardWrapper">
           <img className="card" src={cardImage} alt="card"></img>
@@ -46,17 +47,15 @@ export default class Card extends Component {
         </div>
       )
     }
-    
-
   }
-  
 
-  render() { 
-
-    return (
-      <div>
-        {this.showCards()}
-      </div>
-    )
+  holdButton = () => {
+    if (this.props.gameState !== "Draw") return;
+      this.props.card.held = !this.props.card.held
+      this.setState(state => {
+        return {
+          held: !this.state.held
+        }
+      });
   }
 }
