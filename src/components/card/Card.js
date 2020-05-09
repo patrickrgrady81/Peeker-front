@@ -7,14 +7,22 @@ export default class Card extends Component {
     super(props)
 
     this.state = {
-      held: false 
+      held: false,
+      class: "card-btn"
     }
   }
 
   componentDidUpdate = () => { 
-    if (this.props.gameState === "Deal") { 
+    if (this.props.gameState === "Deal") {
       if (this.state.held) {
         this.setState({ held: false });
+      }
+      if (this.state.class === "card-btn") {
+        this.setState({ class: "none" });
+      }
+    } else if (this.props.gameState === "Draw") { 
+      if (this.state.class === "none") {
+        this.setState({ class: "card-btn" });
       }
     }
   }
@@ -35,7 +43,7 @@ export default class Card extends Component {
       return (
         <div className="cardWrapper">
           <img className="card" src={cardImage} alt="card"></img>
-          <button onClick={this.holdButton} key={null} id={null} className="card-btn">READY</button>
+          <button onClick={this.holdButton} key={null} id={null} className={this.state.class}>READY</button>
         </div>
       )
     } else { 
@@ -43,7 +51,7 @@ export default class Card extends Component {
       return (
         <div className="cardWrapper">
           <img className="card" src={cardImage} alt="card"></img>
-          <button onClick={this.holdButton} key={this.props.card.id} id={this.props.card.id} className="card-btn">{this.state.held ? "HOLDING" : "HOLD"}</button>
+          <button onClick={this.holdButton} key={this.props.card.id} id={this.props.card.id} className={this.state.class}>{this.state.held ? "HOLDING" : "HOLD"}</button>
         </div>
       )
     }
