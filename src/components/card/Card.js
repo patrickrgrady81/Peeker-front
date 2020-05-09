@@ -7,9 +7,10 @@ export default class Card extends Component {
   // }
 
   render() { 
+
     return (
       <div>
-          {`${this.props.card.v} of ${this.props.card.s}`}
+        {`${this.props.card.v} of ${this.props.card.s}`}
       </div>
     )
   }
