@@ -12,7 +12,6 @@ export default class Credits extends Component {
 
   minus = () => { 
     if (this.state.currentBet > 1) {
-      document.getElementById("numCredits").value = this.state.currentBet - 1;
       this.setState( state => {
         return {
           currentBet: state.currentBet--
@@ -23,22 +22,12 @@ export default class Credits extends Component {
 
   plus = () => { 
     if (this.state.currentBet < 5) {
-      document.getElementById("numCredits").value = this.state.currentBet + 1;
       this.setState( state => {
         return {
           currentBet: state.currentBet++
         }
       });
     }
-  }
-
-  slide = () => { 
-    const amount = document.getElementById("numCredits").value;
-    this.setState( state => {
-      return {
-        currentBet: amount
-      }
-    });
   }
 
   render() { 
@@ -51,7 +40,6 @@ export default class Credits extends Component {
           <input readOnly type="text" className="bordered" value={this.state.currentBet}></input>
           <button className="bordered" onClick={this.plus}>+</button>
         </div>
-        <input type="range" id="numCredits" name="numCredits" min="1" max="5" step="1" defaultValue="1" onChange={this.slide}></input>
       </div>
     )
   }
