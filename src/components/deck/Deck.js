@@ -8,7 +8,7 @@ export default class Deck extends Component {
     const newDeck = this.start()
         
     this.state = {
-      gameState: "Start",
+      gameState: "START",
       deck: newDeck,
       hand: []
     };
@@ -48,7 +48,7 @@ export default class Deck extends Component {
 
 
   buttonClick = () => {
-    if (this.state.gameState === "Start") {
+    if (this.state.gameState === "START") {
       for (let i = 0; i < 5; i++) {
         this.setState(state => {
           return {
@@ -59,10 +59,14 @@ export default class Deck extends Component {
       }
       this.setState(state => {
         return {
-          gameState: "Draw"
+          gameState: "DRAW"
         }
       });
-    } else if (this.state.gameState === "Draw") {
+      // =========================
+      // send my cards to the server so I can get info back
+      // about odds and stuff. 
+
+    } else if (this.state.gameState === "DRAW") {
       // We started the game and have cards 
       // When we click again we get new cards for all 
       // cards that are !held
@@ -79,9 +83,12 @@ export default class Deck extends Component {
         return {
           deck: newDeck,
           hand: newHand,
-          gameState: "Deal"
+          gameState: "DEAL"
         }
       });
+      // =========================
+      // send my cards to the server so I can get info back
+      // about fianl tallies. 
     } else { 
       // Deal new hand
       // create new deck 
@@ -99,7 +106,7 @@ export default class Deck extends Component {
         return {
           deck: newDeck,
           hand: pHand,
-          gameState: "Draw"
+          gameState: "DRAW"
         }
       });
     }

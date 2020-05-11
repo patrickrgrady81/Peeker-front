@@ -13,14 +13,14 @@ export default class Card extends Component {
   }
 
   componentDidUpdate = () => { 
-    if (this.props.gameState === "Deal") {
+    if (this.props.gameState === "DEAL") {
       if (this.state.held) {
         this.setState({ held: false });
       }
       if (this.state.class === "card-btn") {
         this.setState({ class: "none" });
       }
-    } else if (this.props.gameState === "Draw") { 
+    } else if (this.props.gameState === "DRAW") { 
       if (this.state.class === "none") {
         this.setState({ class: "card-btn" });
       }
@@ -37,7 +37,7 @@ export default class Card extends Component {
 
   showCards = () => {
     let cardImage;
-    if (this.props.gameState === "Start") {
+    if (this.props.gameState === "START") {
       cardImage = '/img/cards/blue_back.png';
 
       return (
@@ -58,7 +58,7 @@ export default class Card extends Component {
   }
 
   holdButton = () => {
-    if (this.props.gameState !== "Draw") return;
+    if (this.props.gameState !== "DRAW") return;
       this.props.card.held = !this.props.card.held
       this.setState(state => {
         return {

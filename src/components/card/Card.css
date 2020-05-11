@@ -26,6 +26,7 @@
   flex: 0 2 auto;
   align-self: center;
   margin-top: 1rem;
+  height: 1.6rem;
 
 }
 
@@ -34,5 +35,5 @@
 }
 
 .none {
-  visibility: hidden
+  visibility: hidden;
 }
