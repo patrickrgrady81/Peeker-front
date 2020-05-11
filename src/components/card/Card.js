@@ -17,13 +17,13 @@ export default class Card extends Component {
       if (this.state.held) {
         this.setState({ held: false });
       }
-      if (this.state.class === "card-btn") {
-        this.setState({ class: "none" });
-      }
-    } else if (this.props.gameState === "DRAW") { 
-      if (this.state.class === "none") {
-        this.setState({ class: "card-btn" });
-      }
+    //   if (this.state.class === "card-btn") {
+    //     this.setState({ class: "none" });
+    //   }
+    // } else if (this.props.gameState === "DRAW") { 
+    //   if (this.state.class === "none") {
+    //     this.setState({ class: "card-btn" });
+    //   }
     }
   }
 
@@ -39,7 +39,6 @@ export default class Card extends Component {
     let cardImage;
     if (this.props.gameState === "START") {
       cardImage = '/img/cards/blue_back.png';
-
       return (
         <div className="cardWrapper">
           <img className="card" src={cardImage} alt="card"></img>

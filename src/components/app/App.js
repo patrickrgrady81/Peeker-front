@@ -15,12 +15,7 @@ import Credits from '../credits/Credits.js';
 import CurrentHand from '../currentHand/CurrentHand.js';
 import BestPlays from '../bestPlays/BestPlays.js';
 
-// eslint-disable-next-line
-// const deck = new Deck();
-
-class App extends Component {
-
-  
+export default class App extends Component {
   render() { 
     return (
       <div>
@@ -37,5 +32,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;

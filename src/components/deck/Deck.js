@@ -1,5 +1,6 @@
 import Card from "../card/Card";
 import React, { Component } from 'react'
+import DeckJS from "./js/deck.js"
 
 export default class Deck extends Component { 
   constructor() { 
@@ -25,25 +26,23 @@ export default class Deck extends Component {
     );
   }
 
-  showCards = () => { 
-    let cards = [];
-    if (this.state.hand[0]) {
-      // eslint-disable-next-line
-      this.state.hand.map((card, i) => {
-        cards.push(<li key={i}><Card card={card} gameState={this.state.gameState} /></li>);
-      })
-    } else { 
-      for (let i = 0; i < 5; i++) { 
-        cards.push(<li key={i}><Card card={null} gameState={this.state.gameState} /></li>);
-      }
-    }
-    return cards
+  start = () => { 
+    let deck = new DeckJS();
+    let aDeck = deck.createDeck();
+    deck.shuffleDeck(aDeck);
+    return aDeck;
   }
 
-  start = () => { 
-    let deck = this.createDeck();
-    this.shuffleDeck(deck);
-    return deck;
+  showCards = () => {
+    let cards = [];
+    let theCard;
+    
+    for (let i = 0; i < 5; i++) {
+      this.state.hand[i] ? theCard = this.state.hand[i] : theCard = null;
+      cards.push(<li key={i}><Card card={theCard} gameState={this.state.gameState} /></li>);
+    }
+    
+    return cards
   }
 
 
@@ -67,12 +66,8 @@ export default class Deck extends Component {
       // about odds and stuff. 
 
     } else if (this.state.gameState === "DRAW") {
-      // We started the game and have cards 
-      // When we click again we get new cards for all 
-      // cards that are !held
       let newHand = [...this.state.hand];
       let newDeck = [...this.state.deck]
-      // debugger
       for (let i = 0; i < newHand.length; i++) {
         if (!newHand[i].held) {
           let newCard = newDeck[i];
@@ -90,18 +85,14 @@ export default class Deck extends Component {
       // send my cards to the server so I can get info back
       // about fianl tallies. 
     } else { 
-      // Deal new hand
-      // create new deck 
-      let newDeck = this.createDeck();
-      this.shuffleDeck(newDeck);
-      // create new player hand
-      // add 5 cards to hand
+      let deck = new DeckJS();
+      let newDeck = deck.createDeck();
+      deck.shuffleDeck(newDeck);
       let pHand = newDeck.slice(0, 5);
       for (let card of pHand) { 
         card.held = false;
       }
       newDeck = newDeck.slice(4, -1);
-      // gameState => Draw
       this.setState(state => {
         return {
           deck: newDeck,
@@ -110,35 +101,5 @@ export default class Deck extends Component {
         }
       });
     }
-  }
-
-  createDeck() {
-    const cards = []
-    const suits = ['H', 'D', 'C', 'S'];
-    const vals = ['A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K']
-
-    for (let i = 0; i < suits.length; i++) {
-      for (let j = 0; j < vals.length; j++) {
-        cards.push(new localCard(vals[j], suits[i]));
-      }
-    }
-    return cards
-  }
-
-  shuffleDeck(cards) { 
-    for (let i = 0; i < cards.length; i++) {
-      let pickACard = Math.floor(Math.random() * (cards.length));
-      [cards[i], cards[pickACard]] = [cards[pickACard], cards[i]];
-    }
-  }
-}
-
-class localCard { 
-  constructor(v, s) { 
-    this.v = v;
-    this.s = s;
-    this.image = `img/cards/${this.v}${this.s}.png`;
-    this.id = `${this.v.toLowerCase()}${this.s.toLowerCase()}`;
-    this.held = false;
   }
 }
