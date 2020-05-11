@@ -5,35 +5,38 @@ export default class Credits extends Component {
     super(props);
 
     this.state = {
-      credits: 100,
       currentBet: 1
     }
   }
 
   minus = () => { 
     if (this.state.currentBet > 1) {
+      const newBet = this.state.currentBet - 1;
       this.setState( state => {
         return {
-          currentBet: state.currentBet--
+          currentBet: newBet
         }
       });
+      this.props.updateBet(newBet);
     }
   }
 
   plus = () => { 
     if (this.state.currentBet < 5) {
+      const newBet = this.state.currentBet + 1;
       this.setState( state => {
         return {
-          currentBet: state.currentBet++
+          currentBet: newBet
         }
       });
+      this.props.updateBet(newBet);
     }
   }
 
   render() { 
     return (
       <div className="credits">
-        <h1 className="credits-header">Credits: {this.state.credits}</h1>
+        <h1 className="credits-header">Credits: {this.props.credits}</h1>
         <h2 className="bet">Current Bet</h2>
         <div className="betGroup">
           <button className="bordered" onClick={this.minus}>-</button>

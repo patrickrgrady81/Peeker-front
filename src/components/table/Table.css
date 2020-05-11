@@ -2,3 +2,36 @@
   background-color: green;
   color: white;
 }
+.noBullet {
+  list-style: none;
+}
+
+.cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-content: stretch;
+  align-items: flex-start;
+}
+
+.draw-btn {
+  width: 20%;
+  height: 3rem;
+  align-self: center;
+  margin: 2rem 0;
+  
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: flex-start;
+}
+
+#message {
+  color: black;
+}
