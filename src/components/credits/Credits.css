@@ -2,7 +2,26 @@
   border: 1px solid black;
 }
 
-.creditsHeader {
-  color: "red";
+.credits-header {
+  margin: 0.6rem;
 }
 
+.betGroup {
+  margin: 1rem;
+}
+
+.betGroup input {
+  text-align: center;
+  width: 20%;
+  margin: 0 1rem;
+}
+
+.bordered  {
+  border: 2px solid black;
+  font-size: 1.3rem;
+}
+
+.bet {
+  border-top: 2px solid black;
+  padding-top: 0.5rem;
+}
