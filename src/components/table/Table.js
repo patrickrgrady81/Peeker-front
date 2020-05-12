@@ -1,5 +1,6 @@
-import Card from "../card/Card";
+import axios from 'axios';
 import React, { Component } from 'react'
+import Card from "../card/Card";
 import DeckJS from "./js/deck.js"
 
 export default class Table extends Component { 
@@ -54,63 +55,77 @@ export default class Table extends Component {
       this.state.hand[i] ? theCard = this.state.hand[i] : theCard = null;
       cards.push(<li key={i}><Card card={theCard} gameState={this.props.gameState} /></li>);
     }
-    
     return cards
   }
 
+  sendRequest = () => { 
+    axios.request({
+      url: 'http://localhost:3001/api/v1/send',
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      data: {
+        hand: this.state.hand,
+        gameState: this.props.gameState
+      }
+      }).then(function (response) {
+          console.log(response.data);
+      })
+      .catch(function (error) {
+          console.log(error);
+      });
+  }
 
-  play = () => {
+  play = async () => {
     if (this.props.gameState === "START") {
-      this.props.updateCredits(-this.props.bet);
-      for (let i = 0; i < 5; i++) {
-        this.setState(state => {
-          return {
-            deck: state.deck.slice(1),
-            hand: [...state.hand, state.deck[0]],
-          }
-        });
-      }
-      this.props.updateGameState("DRAW");
-      // =========================
-      // send my cards to the server so I can get info back
-      // about odds and stuff. 
-
+      await this.getCards();
+      await this.props.updateGameState("DRAW");
+      this.sendRequest();
     } else if (this.props.gameState === "DRAW") {
-      let newHand = [...this.state.hand];
-      let newDeck = [...this.state.deck]
-      for (let i = 0; i < newHand.length; i++) {
-        if (!newHand[i].held) {
-          let newCard = newDeck[i];
-          newHand.splice(i, 1, newCard);
-        }
-      }
-      this.setState(state => {
-        return {
-          deck: newDeck,
-          hand: newHand,
-        }
-      });
-      this.props.updateGameState("DEAL");
-      // =========================
-      // send my cards to the server so I can get info back
-      // about fianl tallies. 
+      await this.getNewHand();
+      await this.props.updateGameState("DEAL");
+      this.sendRequest();
     } else { 
-      this.props.updateCredits(-this.props.bet);
-      let deck = new DeckJS();
-      let newDeck = deck.createDeck();
-      deck.shuffleDeck(newDeck);
-      let pHand = newDeck.slice(0, 5);
-      for (let card of pHand) { 
-        card.held = false;
-      }
-      newDeck = newDeck.slice(4, -1);
-      this.setState(state => {
-        return {
-          deck: newDeck,
-          hand: pHand,
-        }
-      });
-      this.props.updateGameState("DRAW");
+      await this.getCards();
+      await this.props.updateGameState("DRAW");
+      this.sendRequest();
     }
+  }
+
+  getCards = async () => { 
+    this.props.updateCredits(-this.props.bet);
+    let deck = new DeckJS();
+    let newDeck = deck.createDeck();
+    deck.shuffleDeck(newDeck);
+    let pHand = newDeck.slice(0, 5);
+    for (let card of pHand) { 
+      card.held = false;
+    }
+    newDeck = newDeck.slice(4, -1);
+    this.setState(state => {
+      return {
+        deck: newDeck,
+        hand: pHand,
+      }
+    });
+  }
+
+  getNewHand = async () => { 
+    let newHand = [...this.state.hand];
+    let newDeck = [...this.state.deck]
+    for (let i = 0; i < newHand.length; i++) {
+      if (!newHand[i].held) {
+        let newCard = newDeck[i];
+        newHand.splice(i, 1, newCard);
+      }
+    }
+    this.setState(state => {
+      return {
+        deck: newDeck,
+        hand: newHand,
+      }
+    });
   }
 }
