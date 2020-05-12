@@ -10,15 +10,20 @@ export default class Card extends Component {
       held: false,
       class: "card-btn"
     }
-
-    this.holdMessage = "READY";
   }
 
   componentDidUpdate = () => { 
     if (this.props.gameState === "DEAL") {
       if (this.state.held) {
         this.setState({ held: false });
-      } 
+      }
+    //   if (this.state.class === "card-btn") {
+    //     this.setState({ class: "none" });
+    //   }
+    // } else if (this.props.gameState === "DRAW") { 
+    //   if (this.state.class === "none") {
+    //     this.setState({ class: "card-btn" });
+    //   }
     }
   }
 
@@ -32,40 +37,32 @@ export default class Card extends Component {
 
   showCards = () => {
     let cardImage;
-    let key;
     if (this.props.gameState === "START") {
       cardImage = '/img/cards/blue_back.png';
-      key = null;
-      this.holdMessage = "READY";
+      return (
+        <div className="cardWrapper">
+          <img className="card" src={cardImage} alt="card"></img>
+          <button onClick={this.holdButton} key={null} id={null} className={this.state.class}>READY</button>
+        </div>
+      )
     } else { 
       cardImage = this.props.card.image;
-      key = this.props.card.key
-      this.holdMessage = "HOLD";
+      return (
+        <div className="cardWrapper">
+          <img className="card" src={cardImage} alt="card"></img>
+          <button onClick={this.holdButton} key={this.props.card.id} id={this.props.card.id} className={this.state.class}>{this.state.held ? "HOLDING" : "HOLD"}</button>
+        </div>
+      )
     }
-    const id = key
-    
-
-    return (
-      <div className="cardWrapper">
-        <img className="card" src={cardImage} alt="card"></img>
-        <button onClick={this.holdButton} key={key} id={id} className={this.state.class}>{this.holdMessage}</button>
-      </div>
-    )
   }
 
   holdButton = () => {
     if (this.props.gameState !== "DRAW") return;
-    this.props.card.held = !this.props.card.held
-    this.setState( state => {
-      return {
-        held: !this.state.held,
-      }
-    });
-    if (this.holdMessage === "HOLD") {
-      // debugger
-      this.holdMessage = "HOLDING";
-    } else {
-      this.holdMessage = "HOLD";
-    }
+      this.props.card.held = !this.props.card.held
+      this.setState(state => {
+        return {
+          held: !this.state.held
+        }
+      });
   }
 }
