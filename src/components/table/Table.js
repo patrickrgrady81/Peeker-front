@@ -22,22 +22,19 @@ export default class Table extends Component {
           {this.showCards()}
         </ul>
         <div className="buttonDiv">
-          <button className="draw-btn" onClick={this.oneClick}>BET ONE</button>
+          <button className="draw-btn" onClick={() => { this.minmaxClicked(1) }}>BET ONE</button>
           <button className="draw-btn" onClick={this.play}>{this.props.gameState}</button>
-          <button className="draw-btn" onClick={this.maxClick}>BET MAX</button>
+          <button className="draw-btn" onClick={() => { this.minmaxClicked(5) }}>BET MAX</button>
         </div>
       </div>
     );
   }
 
-   oneClick = async () => { 
-    await this.props.updateBet(1);
-    this.play();
-  }
-
-  maxClick = async () => { 
-    await this.props.updateBet(5);
-    this.play();
+  minmaxClicked = async (bet) => { 
+    if (this.props.gameState !== "DRAW") {
+      await this.props.updateBet(bet);
+      this.play();
+    }
   }
 
   start = () => { 
@@ -82,7 +79,6 @@ export default class Table extends Component {
   }
 
   play = async () => {
-    
     if (this.props.gameState === "START" || this.props.gameState === "DEAL") {
       await this.getCards();
       await this.props.updateGameState("DRAW")
