@@ -20,7 +20,8 @@ export default class App extends Component {
 
     this.state = { 
       credits: 100,
-      bet: 1
+      bet: 1,
+      gameState: "START"
     }
   }
   render() { 
@@ -29,8 +30,10 @@ export default class App extends Component {
         <h2 className="peeker">Peeker</h2>
         <div className="comWrapper">
           <Odds className="o"/>
-          <Table className="t" credits={this.state.credits} bet={this.state.bet} updateCredits={this.updateCredits}
-                updateBet={this.updateBet} />
+          <Table className="t" credits={this.state.credits} bet={this.state.bet} gameState={this.state.gameState}
+                                updateCredits={this.updateCredits}
+                                updateBet={this.updateBet}
+                                updateGameState={this.updateGameState} />
           <Payouts className="p" />
           <Credits className="c" credits={this.state.credits} bet={this.state.bet} updateCredits={this.updateCredits}
                 updateBet={this.updateBet} />
@@ -48,5 +51,9 @@ export default class App extends Component {
 
   updateBet = (bet) => {
     this.setState({bet: bet});
+  }
+
+  updateGameState = (gameState) => {
+    this.setState({gameState: gameState});
   }
 }

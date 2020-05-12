@@ -9,7 +9,6 @@ export default class Table extends Component {
     const newDeck = this.start()
         
     this.state = {
-      gameState: "START",
       deck: newDeck,
       hand: []
     };
@@ -21,9 +20,23 @@ export default class Table extends Component {
         <ul className="noBullet cards">
           {this.showCards()}
         </ul>
-        <button className="draw-btn" onClick={this.buttonClick}>{this.state.gameState}</button>
+        <div className="buttonDiv">
+          <button className="draw-btn" onClick={this.oneClick}>BET ONE</button>
+          <button className="draw-btn" onClick={this.play}>{this.props.gameState}</button>
+          <button className="draw-btn" onClick={this.maxClick}>BET MAX</button>
+        </div>
       </div>
     );
+  }
+
+   oneClick = async () => { 
+    await this.props.updateBet(1);
+    this.play();
+  }
+
+  maxClick = async () => { 
+    await this.props.updateBet(5);
+    this.play();
   }
 
   start = () => { 
@@ -39,15 +52,15 @@ export default class Table extends Component {
     
     for (let i = 0; i < 5; i++) {
       this.state.hand[i] ? theCard = this.state.hand[i] : theCard = null;
-      cards.push(<li key={i}><Card card={theCard} gameState={this.state.gameState} /></li>);
+      cards.push(<li key={i}><Card card={theCard} gameState={this.props.gameState} /></li>);
     }
     
     return cards
   }
 
 
-  buttonClick = () => {
-    if (this.state.gameState === "START") {
+  play = () => {
+    if (this.props.gameState === "START") {
       this.props.updateCredits(-this.props.bet);
       for (let i = 0; i < 5; i++) {
         this.setState(state => {
@@ -57,16 +70,12 @@ export default class Table extends Component {
           }
         });
       }
-      this.setState(state => {
-        return {
-          gameState: "DRAW"
-        }
-      });
+      this.props.updateGameState("DRAW");
       // =========================
       // send my cards to the server so I can get info back
       // about odds and stuff. 
 
-    } else if (this.state.gameState === "DRAW") {
+    } else if (this.props.gameState === "DRAW") {
       let newHand = [...this.state.hand];
       let newDeck = [...this.state.deck]
       for (let i = 0; i < newHand.length; i++) {
@@ -79,9 +88,9 @@ export default class Table extends Component {
         return {
           deck: newDeck,
           hand: newHand,
-          gameState: "DEAL"
         }
       });
+      this.props.updateGameState("DEAL");
       // =========================
       // send my cards to the server so I can get info back
       // about fianl tallies. 
@@ -99,9 +108,9 @@ export default class Table extends Component {
         return {
           deck: newDeck,
           hand: pHand,
-          gameState: "DRAW"
         }
       });
+      this.props.updateGameState("DRAW");
     }
   }
 }
