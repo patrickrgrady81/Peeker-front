@@ -21,7 +21,7 @@ export default class Card extends Component {
     //     this.setState({ class: "none" });
     //   }
     // } else if (this.props.gameState === "DRAW") { 
-    //   if (this.state.class === "none") {
+    //   if (this.state.class === "hide") {
     //     this.setState({ class: "card-btn" });
     //   }
     }

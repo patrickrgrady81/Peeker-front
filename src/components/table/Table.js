@@ -58,7 +58,7 @@ export default class Table extends Component {
     return cards
   }
 
-  sendRequest = () => { 
+  sendHand = async () => { 
     axios.request({
       url: 'http://localhost:3001/api/v1/send',
       method: 'post',
@@ -70,40 +70,48 @@ export default class Table extends Component {
         hand: this.state.hand,
         gameState: this.props.gameState
       }
-      }).then(function (response) {
-          console.log(response.data);
-      })
-      .catch(function (error) {
-          console.log(error);
-      });
+    }).then((response) => {
+      const handValue = response.data.handValue;
+      console.log(handValue);
+      this.props.gameState === "DRAW" ? this.props.updateHandValue(handValue) : this.props.updateHandValue("")
+      // how do I send the handValue to updateHandValue if this is the promise not the Table
+    
+
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
   }
 
   play = async () => {
-    if (this.props.gameState === "START") {
+    
+    if (this.props.gameState === "START" || this.props.gameState === "DEAL") {
       await this.getCards();
-      await this.props.updateGameState("DRAW");
-      this.sendRequest();
-    } else if (this.props.gameState === "DRAW") {
+      await this.props.updateGameState("DRAW")
+    } else {
       await this.getNewHand();
-      await this.props.updateGameState("DEAL");
-      this.sendRequest();
-    } else { 
-      await this.getCards();
-      await this.props.updateGameState("DRAW");
-      this.sendRequest();
+      await this.props.updateGameState("DEAL")
     }
+    
+    this.sendHand();
+    // console.log(handValue);
+    
   }
 
   getCards = async () => { 
     this.props.updateCredits(-this.props.bet);
-    let deck = new DeckJS();
-    let newDeck = deck.createDeck();
-    deck.shuffleDeck(newDeck);
+
+    let newDeck = this.start();
+
+    // player's hand is the first 5 cards in the deck
     let pHand = newDeck.slice(0, 5);
     for (let card of pHand) { 
       card.held = false;
     }
+
+    // the deck with first 5 cards removed
     newDeck = newDeck.slice(4, -1);
+
     this.setState(state => {
       return {
         deck: newDeck,
@@ -114,13 +122,15 @@ export default class Table extends Component {
 
   getNewHand = async () => { 
     let newHand = [...this.state.hand];
-    let newDeck = [...this.state.deck]
+    let newDeck = [...this.state.deck];
+
     for (let i = 0; i < newHand.length; i++) {
       if (!newHand[i].held) {
         let newCard = newDeck[i];
         newHand.splice(i, 1, newCard);
       }
     }
+
     this.setState(state => {
       return {
         deck: newDeck,

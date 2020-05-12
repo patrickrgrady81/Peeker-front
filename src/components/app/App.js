@@ -21,7 +21,8 @@ export default class App extends Component {
     this.state = { 
       credits: 100,
       bet: 1,
-      gameState: "START"
+      gameState: "START",
+      handValue: ""
     }
   }
   render() { 
@@ -33,11 +34,13 @@ export default class App extends Component {
           <Table className="t" credits={this.state.credits} bet={this.state.bet} gameState={this.state.gameState}
                                 updateCredits={this.updateCredits}
                                 updateBet={this.updateBet}
-                                updateGameState={this.updateGameState} />
+                                updateGameState={this.updateGameState}  
+                                updateHandValue={this.updateHandValue} />
+          
           <Payouts className="p" />
           <Credits className="c" credits={this.state.credits} bet={this.state.bet} updateCredits={this.updateCredits}
                 updateBet={this.updateBet} />
-          <CurrentHand className="ch"/>
+          <CurrentHand className="ch" handValue={this.state.handValue}/>
           <BestPlays className="bp"/>
         </div>
       </div>
@@ -45,15 +48,19 @@ export default class App extends Component {
   }
 
   updateCredits = (change) => {
-    const newCredits = this.state.credits + change;
-    this.setState({credits: newCredits});
+    console.log(`changing by: ${change}`);
+    this.setState({credits: this.state.credits + change});
   }
 
   updateBet = (bet) => {
-    this.setState({bet: bet});
+    this.setState({bet});
   }
 
   updateGameState = (gameState) => {
-    this.setState({gameState: gameState});
+    this.setState({gameState});
+  }
+
+  updateHandValue = (handValue) => { 
+    this.setState({handValue});
   }
 }

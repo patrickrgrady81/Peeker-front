@@ -1,4 +1,15 @@
 .currentHand {
   border: 1px solid black;
-  
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: stretch;
+  align-items: center;
+}
+
+.hand {
+  order: 0;
+  flex: 0 1 auto;
+  align-self: auto;
 }
