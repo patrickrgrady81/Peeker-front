@@ -72,9 +72,7 @@ export default class Table extends Component {
       }
     }).then((response) => {
       const handValue = response.data.handValue;
-      console.log(handValue);
-      this.props.gameState === "DRAW" ? this.props.updateHandValue(handValue) : this.props.updateHandValue("")
-      // how do I send the handValue to updateHandValue if this is the promise not the Table
+      this.props.updateHandValue(handValue);
     
 
     })
@@ -94,7 +92,6 @@ export default class Table extends Component {
     }
     
     this.sendHand();
-    // console.log(handValue);
     
   }
 

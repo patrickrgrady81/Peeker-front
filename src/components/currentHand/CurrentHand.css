@@ -1,5 +1,7 @@
 .currentHand {
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  background-color: green;
+  color: white;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;

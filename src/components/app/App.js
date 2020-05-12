@@ -48,7 +48,6 @@ export default class App extends Component {
   }
 
   updateCredits = (change) => {
-    console.log(`changing by: ${change}`);
     this.setState({credits: this.state.credits + change});
   }
 

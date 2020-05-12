@@ -16,13 +16,20 @@
 }
 
 .draw-btn {
-  width: 30%;
   height: 3rem;
   align-self: center;
   margin: 2rem 1rem;
   font-size: 1rem;
   border-radius: 8px;
-  
+  padding: 0 3rem;
+  margin: 0 2rem;
+  background-color: black;
+  color: white;
+}
+
+.draw-btn:hover {
+  border: 2px solid red;
+  cursor: pointer;
 }
 
 .wrapper {
@@ -40,7 +47,8 @@
 
 .buttonDiv {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-self: center;
-  width: 40%;
+  width: 60%;
 }
+
