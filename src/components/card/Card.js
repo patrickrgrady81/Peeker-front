@@ -37,23 +37,22 @@ export default class Card extends Component {
 
   showCards = () => {
     let cardImage;
+    let key;
     if (this.props.gameState === "START") {
       cardImage = '/img/cards/blue_back.png';
-      return (
-        <div className="cardWrapper">
-          <img className="card" src={cardImage} alt="card"></img>
-          <button onClick={this.holdButton} key={null} id={null} className={this.state.class}>READY</button>
-        </div>
-      )
+      key = null;
     } else { 
       cardImage = this.props.card.image;
-      return (
-        <div className="cardWrapper">
-          <img className="card" src={cardImage} alt="card"></img>
-          <button onClick={this.holdButton} key={this.props.card.id} id={this.props.card.id} className={this.state.class}>{this.state.held ? "HOLDING" : "HOLD"}</button>
-        </div>
-      )
+      key = this.props.card.key
     }
+    const id = key
+
+    return (
+      <div className="cardWrapper">
+        <img className="card" src={cardImage} alt="card"></img>
+        <button onClick={this.holdButton} key={key} id={id} className={this.state.class}>READY</button>
+      </div>
+    )
   }
 
   holdButton = () => {
