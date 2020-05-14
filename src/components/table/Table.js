@@ -15,7 +15,7 @@ export default class Table extends Component {
       hand: []
     };
 
-    this.injectCards = true;
+    this.injectCards = false;
   }
 
   render() { 
@@ -83,11 +83,11 @@ export default class Table extends Component {
 
   inject = () => { 
     const injectTheseCards = [
-      new CardJS("A", "H", 1),
-      new CardJS("2", "C", 2),
-      new CardJS("3", "S", 3),
-      new CardJS("3", "D", 3),
-      new CardJS("A", "H", 1),
+      new CardJS("9", "S", 9),
+      new CardJS("K", "S", 13),
+      new CardJS("Q", "S", 12),
+      new CardJS("J", "S", 11),
+      new CardJS("T", "S", 10),
     ];
     this.setState({hand: injectTheseCards});
   }

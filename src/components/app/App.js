@@ -37,7 +37,7 @@ export default class App extends Component {
                                 updateGameState={this.updateGameState}  
                                 updateHandValue={this.updateHandValue} />
           
-          <Payouts className="p" />
+          <Payouts className="p" bet={this.state.bet}/>
           <Credits className="c" credits={this.state.credits} bet={this.state.bet} updateCredits={this.updateCredits}
                 updateBet={this.updateBet} />
           <CurrentHand className="ch" handValue={this.state.handValue}/>
