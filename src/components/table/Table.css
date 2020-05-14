@@ -32,6 +32,10 @@
   cursor: pointer;
 }
 
+.draw-btn:focus {
+  outline: 0;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;

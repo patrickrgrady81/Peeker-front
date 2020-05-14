@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react'
 import Card from "../card/Card";
 import DeckJS from "./js/deck.js"
+import CardJS from "./js/card.js"
 
 export default class Table extends Component { 
   constructor() { 
@@ -13,6 +14,8 @@ export default class Table extends Component {
       deck: newDeck,
       hand: []
     };
+
+    this.injectCards = true;
   }
 
   render() { 
@@ -78,12 +81,29 @@ export default class Table extends Component {
     });
   }
 
+  inject = () => { 
+    const injectTheseCards = [
+      new CardJS("A", "H", 1),
+      new CardJS("2", "C", 2),
+      new CardJS("3", "S", 3),
+      new CardJS("3", "D", 3),
+      new CardJS("A", "H", 1),
+    ];
+    this.setState({hand: injectTheseCards});
+  }
+
   play = async () => {
     if (this.props.gameState === "START" || this.props.gameState === "DEAL") {
       await this.getCards();
+      if (this.injectCards) { 
+        this.inject();
+      }
       await this.props.updateGameState("DRAW")
     } else {
       await this.getNewHand();
+      if (this.injectCards) { 
+        this.inject();
+      }
       await this.props.updateGameState("DEAL")
     }
     
