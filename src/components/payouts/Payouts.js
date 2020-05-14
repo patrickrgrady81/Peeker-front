@@ -32,7 +32,7 @@ export default class Payouts extends Component {
     return (
       <div className="payouts">
         <h3 className="paytable">Pay Table</h3>
-        <table>
+        <table className="pay">
           <thead>
             <tr>
             {payTable.map((cols, i) => (

@@ -2,6 +2,7 @@
   border-left: 2px solid black;
   border-bottom: 2px solid black;
   background-color: green;
+  font-size: 0.85rem;
   
 }
 
@@ -11,9 +12,22 @@
 }
 
 .payTableCol {
-  margin-right: 8px;
+  margin: 8px;
+  padding: 6px 6px;
+}
+
+.pay {
+  border-spacing: 0px;
 }
 
 .active {
-  background-color: red;
+  background-color: limegreen;
 }
+
+
+/*  
+lightgreen
+limegreen
+seagreen
+orange
+*/
