@@ -22,7 +22,8 @@ export default class App extends Component {
       credits: 100,
       bet: 1,
       gameState: "START",
-      handValue: ""
+      handValue: "",
+      intHandValue: 0
     }
   }
   render() { 
@@ -35,7 +36,8 @@ export default class App extends Component {
                                 updateCredits={this.updateCredits}
                                 updateBet={this.updateBet}
                                 updateGameState={this.updateGameState}  
-                                updateHandValue={this.updateHandValue} />
+                                updateHandValue={this.updateHandValue}
+                                updateIntHandValue={this.updateIntHandValue} />
           
           <Payouts className="p" bet={this.state.bet}/>
           <Credits className="c" credits={this.state.credits} bet={this.state.bet} updateCredits={this.updateCredits}
@@ -61,5 +63,9 @@ export default class App extends Component {
 
   updateHandValue = (handValue) => { 
     this.setState({handValue});
+  }
+
+  updateIntHandValue = (intHandValue) => { 
+    this.setState({intHandValue});
   }
 }

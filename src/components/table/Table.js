@@ -59,7 +59,7 @@ export default class Table extends Component {
   }
 
   sendHand = async () => { 
-    axios.request({
+    const response = await axios.request({
       url: 'http://localhost:3001/api/v1/send',
       method: 'post',
       headers: {
@@ -70,15 +70,11 @@ export default class Table extends Component {
         hand: this.state.hand,
         gameState: this.props.gameState
       }
-    }).then((response) => {
-      const handValue = response.data.handValue;
-      this.props.updateHandValue(handValue);
-    
-
     })
-    .catch(function (error) {
-        console.log(error);
-    });
+    const hand = response.data.handValue;
+    const val = response.data.intHandValue;
+    this.props.updateHandValue(hand);
+    this.props.updateIntHandValue(val);
   }
 
   inject = () => { 
