@@ -15,7 +15,7 @@ export default class Table extends Component {
       hand: []
     };
 
-    this.injectCards = false;
+    this.injectCards = true;
   }
 
   render() { 
@@ -77,6 +77,7 @@ export default class Table extends Component {
     console.log(payout);
     this.props.updateHandValue(hand);
     this.props.updateCredits(payout);
+    this.props.updatePayout(payout);
   }
 
   inject = () => { 

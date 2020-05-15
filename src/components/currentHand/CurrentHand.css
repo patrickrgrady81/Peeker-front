@@ -3,7 +3,7 @@
   background-color: green;
   color: white;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: nowrap;
   justify-content: center;
   align-content: stretch;
@@ -14,4 +14,13 @@
   order: 0;
   flex: 0 1 auto;
   align-self: auto;
+  margin-top: 1rem;
+}
+
+.payMsg {
+  order: 0;
+  flex: 0 1 auto;
+  align-self: auto;
+  margin-top: 1rem;
+  color: limegreen;
 }
