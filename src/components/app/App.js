@@ -36,12 +36,12 @@ export default class App extends Component {
                                 updateCredits={this.updateCredits}
                                 updateBet={this.updateBet}
                                 updateGameState={this.updateGameState}  
-                                updateHandValue={this.updateHandValue}
-                                updateIntHandValue={this.updateIntHandValue} />
+                                updateHandValue={this.updateHandValue} />
           
           <Payouts className="p" bet={this.state.bet}/>
-          <Credits className="c" credits={this.state.credits} bet={this.state.bet} updateCredits={this.updateCredits}
-                updateBet={this.updateBet} />
+          <Credits className="c" credits={this.state.credits} bet={this.state.bet}
+                                updateCredits={this.updateCredits}
+                                updateBet={this.updateBet} />
           <CurrentHand className="ch" handValue={this.state.handValue}/>
           <BestPlays className="bp"/>
         </div>
@@ -63,9 +63,5 @@ export default class App extends Component {
 
   updateHandValue = (handValue) => { 
     this.setState({handValue});
-  }
-
-  updateIntHandValue = (intHandValue) => { 
-    this.setState({intHandValue});
   }
 }

@@ -68,18 +68,20 @@ export default class Table extends Component {
       },
       data: {
         hand: this.state.hand,
-        gameState: this.props.gameState
+        gameState: this.props.gameState,
+        bet: this.props.bet
       }
     })
     const hand = response.data.handValue;
-    const val = response.data.intHandValue;
+    const payout = response.data.payout;
+    console.log(payout);
     this.props.updateHandValue(hand);
-    this.props.updateIntHandValue(val);
+    this.props.updateCredits(payout);
   }
 
   inject = () => { 
     const injectTheseCards = [
-      new CardJS("9", "S", 9),
+      new CardJS("A", "S", 1),
       new CardJS("K", "S", 13),
       new CardJS("Q", "S", 12),
       new CardJS("J", "S", 11),
