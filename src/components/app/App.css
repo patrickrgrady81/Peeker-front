@@ -11,3 +11,15 @@
   grid-row-gap: 1px; */
   text-align: center;
 }
+
+*:not(button):not(input) {
+  color: lavender;
+}
+
+/* 
+aliceblue
+cornsilk
+lavender
+lightcyan
+mintcream
+*/

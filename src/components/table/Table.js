@@ -15,7 +15,7 @@ export default class Table extends Component {
       hand: []
     };
 
-    this.injectCards = true;
+    this.injectCards = false;
   }
 
   render() { 
@@ -74,7 +74,6 @@ export default class Table extends Component {
     })
     const hand = response.data.handValue;
     const payout = response.data.payout;
-    console.log(payout);
     this.props.updateHandValue(hand);
     this.props.updateCredits(payout);
     this.props.updatePayout(payout);
@@ -122,7 +121,7 @@ export default class Table extends Component {
     }
 
     // the deck with first 5 cards removed
-    newDeck = newDeck.slice(4, -1);
+    newDeck = newDeck.slice(5, -1);
 
     this.setState(state => {
       return {
