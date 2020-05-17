@@ -74,9 +74,11 @@ export default class Table extends Component {
     })
     const hand = response.data.handValue;
     const payout = response.data.payout;
+    const odds = response.data.odds;
     this.props.updateHandValue(hand);
     this.props.updateCredits(payout);
     this.props.updatePayout(payout);
+    this.props.updateOdds(odds);
   }
 
   inject = () => { 

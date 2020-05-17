@@ -24,7 +24,8 @@ export default class App extends Component {
       gameState: "START",
       handValue: "",
       intHandValue: 0,
-      payout: 0
+      payout: 0,
+      odds: [0]
     }
   }
   render() { 
@@ -32,13 +33,14 @@ export default class App extends Component {
       <div>
         <h2 className="peeker">Peeker</h2>
         <div className="comWrapper">
-          <Odds className="o"/>
+          <Odds className="o" odds= {this.state.odds}/>
           <Table className="t" credits={this.state.credits} bet={this.state.bet} gameState={this.state.gameState}
                                 updateCredits={this.updateCredits}
                                 updateBet={this.updateBet}
                                 updateGameState={this.updateGameState}
                                 updateHandValue={this.updateHandValue}
-                                updatePayout={this.updatePayout} />
+                                updatePayout={this.updatePayout}
+                                updateOdds={this.updateOdds}/>
 
           <Payouts className="p" bet={this.state.bet}/>
           <Credits className="c" credits={this.state.credits} bet={this.state.bet}
@@ -69,5 +71,9 @@ export default class App extends Component {
 
   updatePayout = (payout) => { 
     this.setState({payout});
+  }
+
+  updateOdds = (odds) => { 
+    this.setState({odds});
   }
 }
