@@ -68,17 +68,21 @@ export default class Table extends Component {
       },
       data: {
         hand: this.state.hand,
+        deck: this.state.deck,
         gameState: this.props.gameState,
         bet: this.props.bet
       }
     })
     const hand = response.data.handValue;
     const payout = response.data.payout;
-    const odds = response.data.odds;
-    this.props.updateHandValue(hand);
-    this.props.updateCredits(payout);
-    this.props.updatePayout(payout);
-    this.props.updateOdds(odds);
+    if (response.data.odds) {
+      const odds = response.data.odds;
+      await this.props.updateOdds(odds);
+      console.log(odds);
+    }
+    await this.props.updateHandValue(hand);
+    await this.props.updateCredits(payout);
+    await this.props.updatePayout(payout);
   }
 
   inject = () => { 
@@ -98,13 +102,14 @@ export default class Table extends Component {
       if (this.injectCards) { 
         this.inject();
       }
-      await this.props.updateGameState("DRAW")
+      await this.props.updateGameState("DRAW");
     } else {
       await this.getNewHand();
+      await this.props.updateOdds([0]);
       if (this.injectCards) { 
         this.inject();
       }
-      await this.props.updateGameState("DEAL")
+      await this.props.updateGameState("DEAL");
     }
     
     this.sendHand();
@@ -123,7 +128,7 @@ export default class Table extends Component {
     }
 
     // the deck with first 5 cards removed
-    newDeck = newDeck.slice(5, -1);
+    newDeck = newDeck.slice(5);
 
     this.setState(state => {
       return {
