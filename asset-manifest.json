@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/Peeker-front/static/css/main.26bca755.chunk.css",
+    "main.js": "/Peeker-front/static/js/main.739024ac.chunk.js",
+    "main.js.map": "/Peeker-front/static/js/main.739024ac.chunk.js.map",
+    "runtime-main.js": "/Peeker-front/static/js/runtime-main.a676b317.js",
+    "runtime-main.js.map": "/Peeker-front/static/js/runtime-main.a676b317.js.map",
+    "static/js/2.8c494165.chunk.js": "/Peeker-front/static/js/2.8c494165.chunk.js",
+    "static/js/2.8c494165.chunk.js.map": "/Peeker-front/static/js/2.8c494165.chunk.js.map",
+    "index.html": "/Peeker-front/index.html",
+    "precache-manifest.4640fce302b5da58e148eee4ecc7b8e7.js": "/Peeker-front/precache-manifest.4640fce302b5da58e148eee4ecc7b8e7.js",
+    "service-worker.js": "/Peeker-front/service-worker.js",
+    "static/css/main.26bca755.chunk.css.map": "/Peeker-front/static/css/main.26bca755.chunk.css.map",
+    "static/js/2.8c494165.chunk.js.LICENSE.txt": "/Peeker-front/static/js/2.8c494165.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a676b317.js",
+    "static/js/2.8c494165.chunk.js",
+    "static/css/main.26bca755.chunk.css",
+    "static/js/main.739024ac.chunk.js"
+  ]
+}
