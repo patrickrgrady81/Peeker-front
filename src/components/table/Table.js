@@ -60,7 +60,7 @@ export default class Table extends Component {
 
   sendHand = async () => { 
     const response = await axios.request({
-      url: 'http://localhost:3001/api/v1/send',
+      url: 'https://pg-peeker.herokuapp.com/api/v1/send',
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
